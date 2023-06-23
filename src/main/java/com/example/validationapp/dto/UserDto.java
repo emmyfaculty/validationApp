@@ -4,12 +4,11 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-
+import lombok.Data;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-
+@Data
 public class UserDto {
-
     @NotEmpty
     @Size(min = 4)
     private String username;
@@ -24,39 +23,6 @@ public class UserDto {
 
     @NotNull
     private Date dateOfBirth;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
     public String getErrorMessage() {
         StringBuilder errorMessage = new StringBuilder();
         if (username.isEmpty() || username.length() < 4) {
@@ -73,9 +39,7 @@ public class UserDto {
         }
         return errorMessage.toString().trim();
     }
-
     private boolean isDateOfBirthValid(Date dateOfBirth) {
-        // Add validation logic for date of birth (not empty, 16 years or greater)
         Date currentDate = new Date();
         long ageInMillis = 16L * 365 * 24 * 60 * 60 * 1000; // 16 years in milliseconds
         return dateOfBirth != null && dateOfBirth.before(new Date(currentDate.getTime() - ageInMillis));
